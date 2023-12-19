@@ -20,7 +20,7 @@ bot.onText(/\/track (.+)/, async (msg, match) => {
 
     const chatId = msg.chat.id;
     const resp = match[1];
-    let name = await getCryptoName(resp)
+    let name = await getCryptoName(resp);
     let price = await getCryptoPrice(name);
     bot.sendMessage(chatId, price);
 });
@@ -48,7 +48,9 @@ Twitter: https://x.com/OptixToken`;
 
 async function getCryptoName(symbol) {
     try {
-        const response = await axios.get(`https://api.coingecko.com/api/v3/search?query=${symbol}`, {
+
+        const response = await axios.get(`https://pro-api.coingecko.com/api/v3/search?query=${symbol}&x_cg_pro_api_key=CG-fb3foRj5uYsJGibW1fJAWgi7`, {
+
 
         });
 
@@ -65,9 +67,15 @@ async function getCryptoName(symbol) {
 }
 
 async function getCryptoPrice(symbol) {
-    const apiUrl = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=${symbol}`;
+
+
+    const apiUrl = `https://pro-api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=${symbol}&x_cg_pro_api_key=CG-fb3foRj5uYsJGibW1fJAWgi7`;
     try {
-        const response = await axios.get(apiUrl);
+        const response = await axios.get(apiUrl, {
+            headers: {
+                'x_cg_pro_api_key': "CG-fb3foRj5uYsJGibW1fJAWgi7"
+            }
+        });
         if (response.data && response.data[0].current_price && response.data[0].price_change_percentage_24h) {
             console.log(response.data[0].current_price);
             const price = "$" + response.data[0].current_price;
