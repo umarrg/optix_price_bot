@@ -7,7 +7,7 @@ const token = "6656307885:AAHdMnmzYnyVs9Cs4UgIGBm2vM0YvMxoD5c";
 const bot = new TelegramBot(token, { polling: true });
 
 app.get('/', (req, res) => {
-    res.send('Hello, this is Scanner Bot');
+    res.send('Hello, this is OPtix Price Bot');
 });
 
 const commands = [
